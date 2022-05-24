@@ -12,6 +12,9 @@ list_x = list(map(getv, sheet['A'][1:]))
 list_c = list(map(getv, sheet['C'][1:]))
 list_d = list(map(getv, sheet['D'][1:]))
 
+# Построить графики
 pyplot.plot(list_x, list_c, label='Temp')
 pyplot.plot(list_x, list_d, label='Act')
+
+# Отобразить графики
 pyplot.show()
