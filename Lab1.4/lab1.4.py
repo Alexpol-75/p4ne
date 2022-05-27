@@ -13,4 +13,4 @@ while len(L) < 20:
     if net.regular: L.append(net)
 
 #for i in L: print(i, i.regular)
-for i in range(len(L)): print("#", i+1, "network: ", L[i], "regular: ", L[i].regular)
+for i in range(len(L)): print("#", i+1, "network: ", L[i], "regular:", L[i].regular)
