@@ -6,12 +6,14 @@ import time
 def classify(l):
     line = l.strip()
     while '  ' in line: line = line.replace('  ', ' ')
-    m1 = re.match('^ip address ([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+) ([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)',line)
-    m2 = re.match('^interface (.+)', line)
-    m3 = re.match('^hostname (.+)', line)
-    if bool(m1): return {'ip':ipaddress.IPv4Interface(str(m1.group(1)) + '/' + str(m1.group(2)))}
-    if bool(m2): return {'int':m2.group(1)}
-    if bool(m3): return {'host':m3.group(1)}
+    m = re.match('^ip address ([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+) ([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)',line)
+    if m: return {'ip': ipaddress.IPv4Interface(str(m.group(1)) + '/' + str(m.group(2)))}
+
+    m = re.match('^interface (.+)', line)
+    if m: return {'int': m.group(1)}
+
+    m = re.match('^hostname (.+)', line)
+    if m: return {'host':m.group(1)}
     return 'n/a'
 
 time_start = time.perf_counter()
@@ -44,8 +46,10 @@ hosts = []              # Список уникальных хостов
 # Преобразуем словари в списки уникальных значений
 for c in L_ip:
     if c['ip'] not in ips: ips.append(c['ip'])
+
 for c in L_int:
     if c['int'] not in ints: ints.append(c['int'])
+
 for c in L_host:
     if c['host'] not in hosts: hosts.append(c['host'])
 
@@ -62,4 +66,4 @@ print(
     '\n#    - unique IP entries found:',    len(ips),
     '\n#    - unique interfaces found:',    len(ints),
     '\n#    - unique hosts found:',         len(hosts),
-    '\n# Total Parsing Time: ' + str(total_time_text) + ' seconds')
+    '\n# Total parsing time: ' + str(total_time_text) + ' seconds')
