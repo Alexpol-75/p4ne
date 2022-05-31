@@ -3,7 +3,6 @@ import re
 import ipaddress
 import time
 
-
 def classify(l):
     line = l.strip()
     while '  ' in line: line = line.replace('  ', ' ')
@@ -30,17 +29,33 @@ for f in glob.glob('c:\\Python\\config_files\\*.txt'):      # Список фа�
             if 'int' in c: L_int.append(c)
             if 'host' in c: L_host.append(c)
 
-print(L_ip)
-print(L_int)
-print(L_host)
+#print(L_ip)
+#print(L_int)
+#print(L_host)
+
+ips = []                # Список уникальных IP
+ints = []               # Список уникальных интерфейсов
+hosts = []              # Список уникальных хостов
+# Преобразуем словари в списки уникальных значений
+for c in L_ip:
+    if c['ip'] not in ips: ips.append(c['ip'])
+for c in L_int:
+    if c['int'] not in ints: ints.append(c['int'])
+for c in L_host:
+    if c['host'] not in hosts: hosts.append(c['host'])
+
+print("\n***** IP-Addresses *****\n", sorted(ips))
+print("\n***** Interfaces *****\n", sorted(ints))
+print("\n***** Hosts *****\n", sorted(hosts))
+
+#print(len(ips), len(ints), len(hosts))
 
 # Печать статистики
 total_time_text = '{0:0.2f}'.format(time.perf_counter()-time_start)
 
 print(
-    '\nTotal IP entries found:', len(L_ip),
-    '\nTotal interfaces found:', len(L_int),
-    '\nTotal hosts found:', len(L_int),
-    '\n',
-    '\nTotal Parsing Time: ' + str(total_time_text) + ' seconds'
+    '\n# Total unique IP entries found:', len(ips),
+    '\n# Total unique interfaces found:', len(ints),
+    '\n# Total unique hosts found:', len(hosts),
+    '\n# Total Parsing Time: ' + str(total_time_text) + ' seconds'
 )
