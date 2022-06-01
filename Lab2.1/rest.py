@@ -29,8 +29,8 @@ header = {"content-type": "application/json", "X-Auth-Token": token}
 r = s.get(host_url + '/api/v1/interfaces', headers=header, verify=False)
 #pprint.pprint(r.json())
 
-stat = s.get(host_url + '/api/v1/interfaces/GigabitEthernet1/statistics', headers=header, verify=False)
-pprint.pprint(stat.json())
+#stat = s.get(host_url + '/api/v1/interfaces/GigabitEthernet1/statistics', headers=header, verify=False)
+#pprint.pprint(stat.json())
 
 int_packets = dict()
 for i in r.json()['items']:
@@ -38,7 +38,8 @@ for i in r.json()['items']:
     stat = s.get(host_url + '/api/v1/interfaces/' + int_name + '/statistics', headers=header, verify=False)
     int_packets[int_name] = stat.json()['in-total-packets']
 
-print(int_packets)
+for k in int_packets:
+    print('"' + k + '" total packets:', int_packets[k])
 #print(int_name, 'total packets:', stat.json()['in-total-packets'])
 
 
