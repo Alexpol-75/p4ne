@@ -17,7 +17,11 @@ def configs():
 
 @app.route('/configs/<hostname>')
 def configs_host(hostname):
-    return jsonify(ip_by_host[hostname]['ip'])
+    if hostname in ip_by_host:
+        #return jsonify(ip_by_host[hostname]['ip'])
+        return jsonify(ip_by_host[hostname])
+    else:
+        return "Host '" + hostname + "' not found"
 
 def classify(l,f):
     line = l.strip()
