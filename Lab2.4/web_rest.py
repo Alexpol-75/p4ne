@@ -9,9 +9,9 @@ from urllib3.poolmanager import PoolManager
 from requests.adapters import HTTPAdapter
 
 # Credentials for test network device
-net_device = "https://10.31.70.210:55443"
-login = 'restapi'
-password = 'j0sg1280-7@'
+net_device  = "https://10.31.70.210:55443"
+login       = 'restapi'
+password    = 'j0sg1280-7@'
 
 class Ssl1HttpAdapter(HTTPAdapter):
     def init_poolmanager(self, connections, maxsize, block=False):
